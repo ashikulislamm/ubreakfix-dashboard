@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Phone, Calendar, Settings, LogOut, Zap, X } from 'lucide-react';
+import { Home, Phone, Calendar, Settings, LogOut, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '../../../assets/Logo.png';
 

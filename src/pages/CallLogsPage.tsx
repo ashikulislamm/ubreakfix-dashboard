@@ -81,23 +81,19 @@ export const CallLogsPage: React.FC = () => {
 
   // Filter call logs based on all active filters
   const filteredCallLogs = callLogs.filter((call) => {
-    // Search filter
     const matchesSearch =
       searchQuery === "" ||
       call.phoneNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
       call.issueType.toLowerCase().includes(searchQuery.toLowerCase()) ||
       call.outcome.toLowerCase().includes(searchQuery.toLowerCase());
 
-    // Type filter
     const matchesType =
       typeFilter === "All Type" || call.callType === typeFilter;
 
-    // Issue filter
     const matchesIssue =
       issueFilter === "All Issues" || call.issueType === issueFilter;
 
-    // Date filter (simplified for demo - you can enhance this with actual date logic)
-    const matchesDate = dateFilter === "Today"; // For now, all dates match "Today"
+    const matchesDate = dateFilter === "Today";
 
     return matchesSearch && matchesType && matchesIssue && matchesDate;
   });
@@ -162,10 +158,12 @@ export const CallLogsPage: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Call List */}
-        <Card className="bg-[#0F1F3A] border-gray-800 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">Call List</h3>
-            <span className="text-sm text-gray-400">
+        <Card className="bg-[#0F1F3A] border-gray-800 p-3 lg:p-6">
+          <div className="flex items-center justify-between mb-3 lg:mb-4">
+            <h3 className="text-base lg:text-lg font-semibold text-white">
+              Call List
+            </h3>
+            <span className="text-xs lg:text-sm text-gray-400">
               {filteredCallLogs.length}{" "}
               {filteredCallLogs.length === 1 ? "call" : "calls"}
             </span>
@@ -183,43 +181,43 @@ export const CallLogsPage: React.FC = () => {
                 <div
                   key={call.id}
                   onClick={() => setSelectedCall(call)}
-                  className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                  className={`p-3 lg:p-4 rounded-lg border cursor-pointer transition-all ${
                     selectedCall?.id === call.id
                       ? "bg-blue-500/10 border-blue-500"
                       : "bg-[#1A2942] border-gray-700 hover:bg-[#1F3152]"
                   }`}
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-start justify-between gap-2 sm:gap-3 mb-3">
+                    <div className="flex items-start gap-3 flex-1 w-full">
+                      <div className="w-10 h-10 sm:w-10 sm:h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
                         <Phone className="w-5 h-5 text-white" />
                       </div>
-                      <div>
-                        <p className="text-white font-medium">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white font-medium text-sm lg:text-base break-all">
                           {call.phoneNumber}
                         </p>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-xs lg:text-sm text-gray-400 mt-1">
                           {call.date} • {call.time}
                         </p>
                       </div>
                     </div>
                     <span
-                      className={`text-xs px-2 py-1 rounded ${getCallTypeBadge(call.callType)}`}
+                      className={`text-xs px-2 py-1 rounded whitespace-nowrap self-start ${getCallTypeBadge(call.callType)}`}
                     >
                       {call.callType}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-4 text-sm text-gray-400">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs lg:text-sm text-gray-400 ml-0 sm:ml-13">
                     <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
+                      <Clock className="w-3 h-3 lg:w-4 lg:h-4" />
                       {call.duration}
                     </span>
                     <span className="flex items-center gap-1">
-                      <CheckCircle className="w-4 h-4" />
-                      {call.outcome}
+                      <CheckCircle className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span className="truncate">{call.outcome}</span>
                     </span>
-                    <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">
+                    <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs inline-block w-fit">
                       {call.issueType}
                     </span>
                   </div>
@@ -230,8 +228,8 @@ export const CallLogsPage: React.FC = () => {
         </Card>
 
         {/* Call Details */}
-        <Card className="bg-[#0F1F3A] border-gray-800 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">
+        <Card className="bg-[#0F1F3A] border-gray-800 p-4 lg:p-6">
+          <h3 className="text-base lg:text-lg font-semibold text-white mb-3 lg:mb-4">
             Call Details
           </h3>
 
